@@ -40,6 +40,40 @@ for i in range(enemy_count):
     enemy_y.append(random.randint(enemy_start_y_min,enemy_start_y_max))
     enemy_x_change.append(enemy_speed_x)
     enemy_y_change.append(enemy_speed_y)
-
-bullet_img = pygame.image.load()
     
+#Bullet part
+bullet_img = pygame.image.load()
+bullet_x = 0
+bullet_y = bullet_speed
+bullet_state = "ready"
+
+#Score part
+score_value = 0
+font = pygame.font.Font('Arial', 34)
+text_x = 10
+text_y = 10
+over_font = pygame.font.Font('Arial', 64)
+
+def show_score(x,y):
+    
+    score = font.render("Score: "+str(score_value),True(255,255,255))
+    root.blit(score, (x,y))
+
+def game_over_text():
+    over_text = over_font.render("GAME OVER", True, (255,255,0))
+    root.blit(over_text,(200,250))
+    
+def player(x,y):
+    root.blit(player_img,(x,y))
+
+def fire_bullet(x,y):
+    global bullet_state
+    bullet_state = "fire"
+    root.blit(bullet_img,(x+16,y+10))
+
+def isCollision(enemyx,enemyy,bulletx,bullety):
+    distance = math.sqrt((enemyx-bulletx)**2+(enemyy-bullety)**2)
+    return distance<collision_distance
+
+
+#Game loop
